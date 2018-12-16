@@ -1,1 +1,2 @@
 hermes-python>=0.1
+pyowm
