@@ -19,7 +19,7 @@ INTENT_FILTER_FEELING = [INTENT_GOOD, INTENT_BAD, INTENT_ALRIGHT]
 
 def main():
     config = read_configuration_file(CONFIG_INI)
-    owm = pyowm.OWM(config["owm_key"])
+    owm = pyowm.OWM(config["secret"]["owm_key"])
 
     with Hermes("localhost:1883") as h:
         h.owm = owm
@@ -35,13 +35,13 @@ def how_are_you_callback(hermes, intent_message):
 
     # set mood according to weather
     config = read_configuration_file(CONFIG_INI)
-    observation = hermes.owm.weather_at_place(config["city"])
+    observation = hermes.owm.weather_at_place(config["secret"]["city"])
     w = observation.get_weather()
     temp = w.get_temperature('celsius')["temp"]
-    if temp >= config["temperature_threshold"]:
-        response = "I'm feeling great! It's {} degrees in {}.".format(temp, config["city"])
+    if temp >= config["secret"]["temperature_threshold"]:
+        response = "I'm feeling great! It's {} degrees in {}.".format(temp, config["secret"]["city"])
     else:
-        response = "Not so good. It's {} degrees in {}.".format(temp, config["city"])
+        response = "Not so good. It's {} degrees in {}.".format(temp, config["secret"]["city"])
 
     hermes.publish_continue_session(session_id, response, INTENT_FILTER_FEELING)
 
