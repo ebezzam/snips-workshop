@@ -39,9 +39,10 @@ def how_are_you_callback(hermes, intent_message):
     w = observation.get_weather()
     temp = w.get_temperature('celsius')["temp"]
     if temp >= config["secret"]["temperature_threshold"]:
-        response = "I'm feeling great! It's {} degrees in {}.".format(temp, config["secret"]["city"])
+        response = "I'm feeling great! "
     else:
-        response = "Not so good. It's {} degrees in {}.".format(temp, config["secret"]["city"])
+        response = "Not so good. "
+    response += "It's {} degrees in {}. How are you?".format(temp, config["secret"]["city"])
 
     hermes.publish_continue_session(session_id, response, INTENT_FILTER_FEELING)
 
