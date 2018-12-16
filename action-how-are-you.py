@@ -38,7 +38,7 @@ def how_are_you_callback(hermes, intent_message):
     observation = hermes.owm.weather_at_place(config["secret"]["city"])
     w = observation.get_weather()
     temp = w.get_temperature('celsius')["temp"]
-    if float(temp) >= config["secret"]["temperature_threshold"]:
+    if temp >= float(config["secret"]["temperature_threshold"]):
         response = "I'm feeling great! "
     else:
         response = "Not so good. "
