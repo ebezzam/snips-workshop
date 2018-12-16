@@ -80,5 +80,5 @@ def read_configuration_file(configuration_file):
         return dict()
 
 
-# if __name__ == "__main__":
-#     main()
+if __name__ == "__main__":
+    main()
